@@ -64,6 +64,26 @@ module.exports = {
                 ]
             },
             {
+                test: /\.less$/,
+                use: [{
+                    loader: 'style-loader'
+                }, {
+                    loader: 'css-loader', // translates CSS into CommonJS
+                    options: { minimize: true }
+                }, {
+                    loader: 'less-loader' // compiles Less to CSS
+                }]
+            },
+            {
+                test: /\.css$/,
+                use: [{
+                    loader: 'style-loader'
+                }, {
+                    loader: 'css-loader', // translates CSS into CommonJS
+                    options: { minimize: true }
+                }]
+            },
+            {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
@@ -71,7 +91,11 @@ module.exports = {
             {
                 test: /\.(jpg|png)$/,
                 use: 'file-loader'
-            }
+            },
+            // {
+            //     test: /\.(woff2?|ttf|eot|svg|otf)(\?.*)?$/,
+            //     use: 'url-loader'
+            // }
         ]
     },
     plugins: [

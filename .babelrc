@@ -1,17 +1,41 @@
 {
     "env": {
         "development": {
-            "presets": ["babel-preset-env", "react"]
+            "presets": [
+                "env",
+                "es2015",
+                "stage-2",
+                "react"
+            ],
+            "plugins": [
+                ["import", {
+                    "libraryName": "antd",
+                    "libraryDirectory": "es",
+                    "style": "css" // `style: true` 会加载 less 文件
+                }],
+                "transform-runtime"
+            ]
         },
         "production": {
-            "presets": ["babel-preset-env", "react"],
+            "presets": [
+                "env",
+                "es2015",
+                "stage-2",
+                "react"
+            ],
             "plugins": [
                 [
                     "transform-react-remove-prop-types",
                     {
                         "mode": "wrap"
                     }
-                ]
+                ],
+                ["import", {
+                    "libraryName": "antd",
+                    "libraryDirectory": "es",
+                    "style": "css" // `style: true` 会加载 less 文件
+                }],
+                "transform-runtime"
             ]
         }
     }

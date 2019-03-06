@@ -26,23 +26,7 @@ module.exports = {
     optimization: {
         minimizer: [
             // 自定义js优化配置，将会覆盖默认配置
-            new UglifyJsPlugin({
-                exclude: /\.min\.js$/, // 过滤掉以".min.js"结尾的文件，我们认为这个后缀本身就是已经压缩好的代码，没必要进行二次压缩
-                cache: true,
-                parallel: true, // 开启并行压缩，充分利用cpu
-                sourceMap: false,
-                extractComments: false, // 移除注释
-                uglifyOptions: {
-                    compress: {
-                        unused: true,
-                        warnings: false,
-                        drop_debugger: true
-                    },
-                    output: {
-                        comments: false
-                    }
-                }
-            }),
+            new UglifyJsPlugin(),
         ],
         runtimeChunk: 'single',
         splitChunks: {
@@ -79,17 +63,58 @@ module.exports = {
                     {
                         loader: 'postcss-loader',
                         options: {
-                          sourceMap: false,
-                          config: {
-                            path: 'postcss.config.js'  // 这个得在项目根目录创建此文件
-                          }
+                            sourceMap: false,
+                            config: {
+                                path: 'postcss.config.js'  // 这个得在项目根目录创建此文件
+                            }
                         }
-                      },
+                    },
                     {
                         loader: 'resolve-url-loader'
                     },
                     {
                         loader: 'sass-loader'
+                    }
+                ]
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader', // translates CSS into CommonJS
+                        options: { minimize: true }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            sourceMap: false,
+                            config: {
+                                path: 'postcss.config.js'  // 这个得在项目根目录创建此文件
+                            }
+                        }
+                    },
+                    {
+                        loader: 'less-loader', // compiles Less to CSS
+                    }
+                ]
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader', // translates CSS into CommonJS
+                        options: { minimize: true }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            sourceMap: false,
+                            config: {
+                                path: 'postcss.config.js'  // 这个得在项目根目录创建此文件
+                            }
+                        }
                     }
                 ]
             },
@@ -101,7 +126,11 @@ module.exports = {
             {
                 test: /\.(jpg|png)$/,
                 use: 'file-loader?limit=8192&name=global/img/[hash:8].[name].[ext]'
-            }
+            },
+            // {
+            //     test: /\.(woff2?|ttf|eot|svg|otf)(\?.*)?$/,
+            //     use: 'url-loader?limit=8192&name=global/fonts/[hash:8].[name].[ext]'
+            // }
         ]
     },
     plugins: [
@@ -109,7 +138,7 @@ module.exports = {
             template: '../src/index.html',
             inlineSource: '.(css)$',
             filename: 'app.html',
-            favicon:'../src/favicon.ico',
+            favicon: '../src/favicon.ico',
             chunks: ['app', 'vendors', 'runtime']
         }),
         new HtmlWebpackInlineSourcePlugin(),

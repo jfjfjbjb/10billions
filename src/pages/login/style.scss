@@ -1,6 +1,31 @@
+@import "~styles/palette.scss";
+
 .login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100%;
     background-image: linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
     background-position: center;
     background-size: cover;
+
+    >div{
+        padding: 16px;
+        border-radius: 4px;
+        background: $grey-1;
+        box-shadow: 4px 4px $purple-5;
+
+        .loginIcon{
+            font-size: 50px;
+            padding: 16px;
+            display: block;
+            color: $purple-5;
+        }
+
+        .loginForm{
+            .loginSubmit{
+                width: 100%;
+            }
+        }
+    }
 }
