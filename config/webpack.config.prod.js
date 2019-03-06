@@ -32,10 +32,16 @@ module.exports = {
         splitChunks: {
             cacheGroups: {
                 vendors: {
-                    test: /[\\/]node_modules[\\/]/,
+                    // test: /[\\/]node_modules[\\/]/,
+                    test: /react|react-dom|react-router|prop-types|reformat-number/,
                     name: 'vendors',
-                    enforce: true,
-                    chunks: 'all'
+                    enforce: true
+                    // chunks: 'all'
+                },
+                antd: {
+                    // test: /[\\/]node_modules[\\/]/,
+                    test: /antd/,
+                    name: 'antd'
                 }
             }
         }
@@ -83,7 +89,7 @@ module.exports = {
                     MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader', // translates CSS into CommonJS
-                        options: { minimize: true }
+                        options: {minimize: true}
                     },
                     {
                         loader: 'postcss-loader',
@@ -96,6 +102,12 @@ module.exports = {
                     },
                     {
                         loader: 'less-loader', // compiles Less to CSS
+                        options: {
+                            modifyVars: {
+                                "@icon-url": '/assets/fonts/iconfont'  // 已经没用了，新版本采用内联进js，等官方更新
+                            }
+                        }
+
                     }
                 ]
             },
@@ -105,7 +117,7 @@ module.exports = {
                     MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader', // translates CSS into CommonJS
-                        options: { minimize: true }
+                        options: {minimize: true}
                     },
                     {
                         loader: 'postcss-loader',
@@ -139,7 +151,7 @@ module.exports = {
             inlineSource: '.(css)$',
             filename: 'app.html',
             favicon: '../src/favicon.ico',
-            chunks: ['app', 'vendors', 'runtime']
+            chunks: ['app', 'vendors', 'antd', 'runtime']
         }),
         new HtmlWebpackInlineSourcePlugin(),
         new InlineManifestWebpackPlugin(),
@@ -149,8 +161,8 @@ module.exports = {
                 to: path.join(PATHS.dist, 'favicon.ico')
             },
             {
-                from: path.join(PATHS.src, 'demo/static.js'),
-                to: path.join(PATHS.dist, 'static.js')
+                from: path.join(PATHS.src, 'assets/'),
+                to: path.join(PATHS.dist, 'assets/')
             }
         ]),
         new MiniCssExtractPlugin({

@@ -26,8 +26,7 @@ module.exports = {
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
                     name: 'vendors',
-                    enforce: true,
-                    chunks: 'all'
+                    enforce: true
                 }
             }
         }
@@ -69,7 +68,7 @@ module.exports = {
                     loader: 'style-loader'
                 }, {
                     loader: 'css-loader', // translates CSS into CommonJS
-                    options: { minimize: true }
+                    options: {minimize: true}
                 }, {
                     loader: 'less-loader' // compiles Less to CSS
                 }]
@@ -80,7 +79,7 @@ module.exports = {
                     loader: 'style-loader'
                 }, {
                     loader: 'css-loader', // translates CSS into CommonJS
-                    options: { minimize: true }
+                    options: {minimize: true}
                 }]
             },
             {
@@ -113,8 +112,8 @@ module.exports = {
                 to: path.join(PATHS.dist, 'favicon.ico')
             },
             {
-                from: path.join(PATHS.src, 'demo/static.js'),
-                to: path.join(PATHS.dist, 'static.js')
+                from: path.join(PATHS.src, 'assets/'),
+                to: path.join(PATHS.dist, 'assets/')
             }
         ]),
         new webpack.DefinePlugin({
