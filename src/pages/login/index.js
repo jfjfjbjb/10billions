@@ -1,5 +1,5 @@
 import React from 'react';
-import {LocaleProvider, Form, Icon, Input, Button, Checkbox} from 'antd';
+import {LocaleProvider, Form, Icon, Input, Button, Checkbox, message, Row, Col} from 'antd';
 // 由于 antd 组件的默认文案是英文，所以需要修改为中文
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 // 暂不使用moment库，比较大
@@ -16,6 +16,10 @@ class Login extends React.Component {
         });
     }
 
+    tips = (e) => {
+        message.info('暂未开放，登录名、密码：123');
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -29,8 +33,8 @@ class Login extends React.Component {
         const {getFieldDecorator} = this.props.form;
         return (
             <LocaleProvider locale={zhCN}>
-                <div className={styles.login}>
-                    <div>
+                <Row className={styles.login} type="flex" align="middle" justify="center">
+                    <Col span={16}>
                         <Icon type="login" className={styles.loginIcon}/>
                         <Form onSubmit={this.handleSubmit} className={styles.loginForm}>
                             <Form.Item>
@@ -52,17 +56,17 @@ class Login extends React.Component {
                                     valuePropName: 'checked',
                                     initialValue: true,
                                 })(
-                                    <Checkbox>Remember me</Checkbox>
+                                    <Checkbox>记住我</Checkbox>
                                 )}
-                                <a className="login-form-forgot" href="">Forgot password</a>
+                                <a onClick={(e)=>this.tips(e)} className="login-form-forgot" >忘记密码</a>
                                 <Button type="primary" htmlType="submit" className={styles.loginSubmit}>
-                                    Log in
+                                    登陆
                                 </Button>
-                                Or <a href="">register now!</a>
+                                <a onClick={this.tips.bind(this)} style={{float:'right'}}>立即注册</a>
                             </Form.Item>
                         </Form>
-                    </div>
-                </div>
+                    </Col>
+                </Row>
             </LocaleProvider>
         );
     }

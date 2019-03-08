@@ -13,7 +13,7 @@ const Routes = [{
     path: '/',
     getComponent(nextState, callback) {
         require.ensure([], function (require) {
-            callback(null, require('../pages/home').default)
+            callback(null, require('../pages/root').default)
         });
     }
 }];
