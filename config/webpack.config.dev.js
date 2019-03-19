@@ -34,7 +34,8 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx', '.jsm'],
         alias: {
-            styles: path.resolve(__dirname, '../src/styles')
+            styles: path.resolve(__dirname, '../src/styles'),
+            utils: path.resolve(__dirname, '../src/utils')
         }
     },
     devtool: 'eval-sourcemap',
@@ -49,7 +50,7 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options: {
-                            modules: true,
+                            // modules: true,
                             camelCase: 'dashes',
                             localIdentName: '[path][name]__[local]'
                         }
@@ -119,8 +120,7 @@ module.exports = {
         new webpack.DefinePlugin({
             PRODUCTION: JSON.stringify(false),
             VERSION: JSON.stringify('1.0.0'),
-            DEBUG: true,
-            CODE_FRAGMENT: '80 + 5'
+            DEBUG: true
         })
     ],
     devServer: {

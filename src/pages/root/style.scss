@@ -1,0 +1,12 @@
+@import "~styles/palette.scss";
+
+.root{
+    height: 100%;
+    .header{
+        background-image: linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+        .header-title{
+            color: $white;
+            font-size: 2.4rem;
+        }
+    }
+}

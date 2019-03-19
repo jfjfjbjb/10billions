@@ -2,7 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
-const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin')
+const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
@@ -49,7 +49,8 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx', '.jsm'],
         alias: {
-            styles: path.resolve(__dirname, '../src/styles')
+            styles: path.resolve(__dirname, '../src/styles'),
+            utils: path.resolve(__dirname, '../src/utils')
         }
     },
     module: {
@@ -61,7 +62,7 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options: {
-                            modules: true,
+                            // modules: true,
                             camelCase: 'dashes',
                             minimize: true
                         }

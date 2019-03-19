@@ -5,7 +5,9 @@ import zhCN from 'antd/lib/locale-provider/zh_CN';
 // 暂不使用moment库，比较大
 // import moment from 'moment';
 // import 'moment/locale/zh-cn';
-import styles from "./style.scss";
+import "./style.scss";
+import network from "utils/network";
+import {browserHistory} from 'react-router';
 
 // moment.locale('zh-cn');
 
@@ -24,7 +26,16 @@ class Login extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                network.post({
+                    url: '/users/login',
+                    data: values
+                }).then((res) => {
+                    message.success(res.message, 1);
+                    // 跳转到root
+                    browserHistory.push('/');
+                }).catch((e) => {
+                    console.log(e);
+                });
             }
         });
     }
@@ -33,22 +44,24 @@ class Login extends React.Component {
         const {getFieldDecorator} = this.props.form;
         return (
             <LocaleProvider locale={zhCN}>
-                <Row className={styles.login} type="flex" align="middle" justify="center">
+                <Row className="login" type="flex" align="middle" justify="center">
                     <Col span={16}>
-                        <Icon type="login" className={styles.loginIcon}/>
-                        <Form onSubmit={this.handleSubmit} className={styles.loginForm}>
+                        <Icon type="login" className="loginIcon"/>
+                        <Form onSubmit={this.handleSubmit} className="loginForm">
                             <Form.Item>
                                 {getFieldDecorator('userName', {
-                                    rules: [{ required: true, message: 'Please input your username!' }],
+                                    rules: [{required: true, message: 'Please input your username!'}],
                                 })(
-                                    <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+                                    <Input prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                                           placeholder="Username"/>
                                 )}
                             </Form.Item>
                             <Form.Item>
                                 {getFieldDecorator('password', {
-                                    rules: [{ required: true, message: 'Please input your Password!' }],
+                                    rules: [{required: true, message: 'Please input your Password!'}],
                                 })(
-                                    <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+                                    <Input prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                                           type="password" placeholder="Password"/>
                                 )}
                             </Form.Item>
                             <Form.Item>
@@ -58,11 +71,11 @@ class Login extends React.Component {
                                 })(
                                     <Checkbox>记住我</Checkbox>
                                 )}
-                                <a onClick={(e)=>this.tips(e)} className="login-form-forgot" >忘记密码</a>
-                                <Button type="primary" htmlType="submit" className={styles.loginSubmit}>
+                                <a onClick={(e) => this.tips(e)} className="login-form-forgot">忘记密码</a>
+                                <Button type="primary" htmlType="submit" className="loginSubmit">
                                     登陆
                                 </Button>
-                                <a onClick={this.tips.bind(this)} style={{float:'right'}}>立即注册</a>
+                                <a onClick={this.tips.bind(this)} style={{float: 'right'}}>立即注册</a>
                             </Form.Item>
                         </Form>
                     </Col>

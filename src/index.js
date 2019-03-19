@@ -4,9 +4,9 @@ import {Router, browserHistory} from 'react-router';
 import Routes from './router';
 
 // import App from './components/app';
-import './app.css';
 import './index.scss';
 import './demo';
+import './utils/config'
 
 // 处理首屏loading
 // 100ms后开启，10s后关闭
