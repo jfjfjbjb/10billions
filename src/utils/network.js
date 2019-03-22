@@ -3,7 +3,7 @@ import {message} from 'antd';
 
 let baseUrl = 'http://127.0.0.1:3001/';
 if(PRODUCTION) {
-    baseUrl = 'http://47.102.133.38:3001/';  // 线上地址
+    baseUrl = 'https://www.10billions.com.cn:3001/';  // 线上地址
 }
 
 // 添加请求拦截器
