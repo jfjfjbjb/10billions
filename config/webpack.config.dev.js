@@ -93,7 +93,7 @@ module.exports = {
                 test: /\.(jpg|png)$/,
                 // use: 'file-loader?limit=8192&name=assets/img/[hash:8].[name].[ext]'，
                 use: [{
-                    loader:'file-loader',
+                    loader: 'url-loader',
                     options: {
                         limit: 8192,
                         name: '[path][hash:8].[name].[ext]',//path为相对于context的路径

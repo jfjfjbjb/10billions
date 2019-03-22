@@ -141,11 +141,14 @@ module.exports = {
                 test: /\.(jpg|png)$/,
                 // use: 'file-loader?limit=8192&name=assets/img/[hash:8].[name].[ext]'，
                 use: [{
-                    loader:'file-loader',
+                    loader:'url-loader',
                     options: {
                         limit: 8192,
                         name: '[path][hash:8].[name].[ext]',//path为相对于context的路径
-                        context:'src'
+                        context:'src',
+                        publicPath:function(url){//返回最终的资源相对路径
+                            return path.relative(PATHS.dist, url).replace(/\\/g,'/');
+                        }
                     }
                 }]
             },
