@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Layout} from 'antd';
+import {Layout, Icon} from 'antd';
 import {browserHistory} from 'react-router';
 import network from "utils/network";
 import "./style.scss";
@@ -17,20 +17,30 @@ class Root extends React.Component {
         super(props);
         this.init();
     }
-    init() {
-        network.get({
+    async init() {
+        let res = await network.get({
             url: '/index'
-        }).then((data) => {
-            console.log(this.state);
         });
+        console.log(this.state, res);
     }
     render() {
         return (
             <Layout className="root">
                 <Header className="header">
-                    <span className="header-title">找寻回忆</span>
+                    {/* logo */}
+                    <Icon type="medium" className="header-logo"/>
+                    <span className="header-title">emories</span>
+                    {/* 右侧功能区 */}
+                    <ul className="header-tools">
+                        <li className="header-user">
+                            <Icon type="user" className="header-user-icon"/>
+                        </li>
+                    </ul>
+
                 </Header>
-                <Content className="content"></Content>
+                <Content className="content">
+                    {this.props.children}
+                </Content>
                 {/*<Footer>Footer</Footer>*/}
             </Layout>
         );

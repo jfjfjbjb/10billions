@@ -1,7 +1,10 @@
 import axios from "axios";
 import {message} from 'antd';
 
-const baseUrl = 'http://127.0.0.1:3001/';
+let baseUrl = 'http://127.0.0.1:3001/';
+if(PRODUCTION) {
+    baseUrl = 'http://47.102.133.38:3001/';  // 线上地址
+}
 
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {

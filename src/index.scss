@@ -7,13 +7,30 @@ html, body {
     padding: 0;
     height: 100%;
 }
+* {
+    margin: 0;
+    padding: 0;
+}
+ul,li{
+    list-style: none;
+}
+.clearfix{
+    zoom: 1;
+    &:after{
+        content: '';
+        display: block;
+        clear: both;
+        height: 0;
+    }
+}
+
 // 根节点
-#app{
+#app {
     height: 100%;
 }
 
 // 预加载loading，防止白屏
-#pre-loader{
+#pre-loader {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -27,6 +44,7 @@ html, body {
     box-sizing: content-box;
     z-index: -1;
 }
+
 #pre-loader:after {
     position: absolute;
     width: 50px;
@@ -72,7 +90,7 @@ html, body {
 }
 
 // 小屏幕适配
-@media (min-width: 360px) and (max-width: 640px) {
+@media (max-width: 640px) {
     html, body {
         font-size: 8px !important;
     }

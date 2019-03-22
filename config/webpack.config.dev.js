@@ -35,7 +35,8 @@ module.exports = {
         extensions: ['.js', '.jsx', '.jsm'],
         alias: {
             styles: path.resolve(__dirname, '../src/styles'),
-            utils: path.resolve(__dirname, '../src/utils')
+            utils: path.resolve(__dirname, '../src/utils'),
+            assets: path.resolve(__dirname, '../src/assets')
         }
     },
     devtool: 'eval-sourcemap',
@@ -90,7 +91,15 @@ module.exports = {
             },
             {
                 test: /\.(jpg|png)$/,
-                use: 'file-loader'
+                // use: 'file-loader?limit=8192&name=assets/img/[hash:8].[name].[ext]'，
+                use: [{
+                    loader:'file-loader',
+                    options: {
+                        limit: 8192,
+                        name: '[path][hash:8].[name].[ext]',//path为相对于context的路径
+                        context:'src'
+                    }
+                }]
             },
             // {
             //     test: /\.(woff2?|ttf|eot|svg|otf)(\?.*)?$/,
@@ -111,10 +120,6 @@ module.exports = {
             {
                 from: path.join(PATHS.src, 'favicon.ico'),
                 to: path.join(PATHS.dist, 'favicon.ico')
-            },
-            {
-                from: path.join(PATHS.src, 'assets/'),
-                to: path.join(PATHS.dist, 'assets/')
             }
         ]),
         new webpack.DefinePlugin({
